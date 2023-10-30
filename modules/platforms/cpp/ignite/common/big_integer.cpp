@@ -180,13 +180,13 @@ void big_integer::from_big_endian(const std::byte *data, std::size_t size) {
         std::uint32_t last = 0;
         switch (size) {
             case 3:
-                last |= std::to_integer<std::uint32_t>(data[size - 3]) << 16;
+                last |= static_cast<std::uint32_t>(data[size - 3]) << 16;
                 [[fallthrough]];
             case 2:
-                last |= std::to_integer<std::uint32_t>(data[size - 2]) << 8;
+                last |= static_cast<std::uint32_t>(data[size - 2]) << 8;
                 [[fallthrough]];
             case 1:
-                last |= std::to_integer<std::uint32_t>(data[size - 1]);
+                last |= static_cast<std::uint32_t>(data[size - 1]);
                 break;
             default:
                 assert(false);
@@ -222,13 +222,13 @@ void big_integer::from_negative_big_endian(const std::byte *data, std::size_t si
         std::uint32_t last = 0;
         switch (size) {
             case 3:
-                last |= std::to_integer<std::uint32_t>(~data[size - 3]) << 16;
+                last |= static_cast<std::uint32_t>(~data[size - 3]) << 16;
                 [[fallthrough]];
             case 2:
-                last |= std::to_integer<std::uint32_t>(~data[size - 2]) << 8;
+                last |= static_cast<std::uint32_t>(~data[size - 2]) << 8;
                 [[fallthrough]];
             case 1:
-                last |= std::to_integer<std::uint32_t>(~data[size - 1]);
+                last |= static_cast<std::uint32_t>(~data[size - 1]);
                 break;
             default:
                 assert(false);
@@ -278,13 +278,13 @@ big_integer::big_integer(const int8_t *val, int32_t len, int8_t sign, bool bigEn
             std::uint32_t last = 0;
             switch (size) {
                 case 3:
-                    last |= std::to_integer<std::uint32_t>(data[2]) << 16;
+                    last |= static_cast<std::uint32_t>(data[2]) << 16;
                     [[fallthrough]];
                 case 2:
-                    last |= std::to_integer<std::uint32_t>(data[1]) << 8;
+                    last |= static_cast<std::uint32_t>(data[1]) << 8;
                     [[fallthrough]];
                 case 1:
-                    last |= std::to_integer<std::uint32_t>(data[0]);
+                    last |= static_cast<std::uint32_t>(data[0]);
                     break;
                 default:
                     assert(false);
@@ -300,7 +300,7 @@ big_integer::big_integer(const std::byte *data, std::size_t size) {
         return;
     }
 
-    if (std::to_integer<std::int8_t>(data[0]) >= 0) {
+    if (static_cast<std::int8_t>(data[0]) >= 0) {
         from_big_endian(data, size);
     } else {
         from_negative_big_endian(data, size);
@@ -369,7 +369,7 @@ std::uint32_t big_integer::bit_length() const noexcept {
     if (res != 0 && is_negative()) {
         // Check if the magnitude is a power of 2.
         auto last = mag.back();
-        if ((last & (last - 1)) == 0 && std::all_of(mag.rbegin() + 1, mag.rend(), [](auto x) { return x == 0; })) {
+        if ((last & (last - 1)) == 0 && std::all_of(mag.rbegin() + 1, mag.rend(), [](std::uint32_t x) { return x == 0; })) {
             res--;
         }
     }

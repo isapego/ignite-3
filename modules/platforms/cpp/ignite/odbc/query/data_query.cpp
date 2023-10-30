@@ -342,7 +342,7 @@ sql_result data_query::make_request_execute() {
 
         m_connection.mark_transaction_non_empty();
 
-        auto reader = std::make_unique<protocol::reader>(response.get_bytes_view());
+        auto reader = std::unique_ptr<protocol::reader>(new protocol::reader(response.get_bytes_view()));
         m_query_id = reader->read_object_nullable<std::int64_t>();
 
         m_has_rowset = reader->read_bool();
@@ -353,8 +353,8 @@ sql_result data_query::make_request_execute() {
         if (m_has_rowset) {
             auto columns = read_meta(*reader);
             set_resultset_meta(columns);
-            auto page = std::make_unique<result_page>(std::move(response), std::move(reader));
-            m_cursor = std::make_unique<cursor>(std::move(page));
+            auto page = std::unique_ptr<result_page>(new result_page(std::move(response), std::move(reader)));
+            m_cursor = std::unique_ptr<cursor>(new cursor(std::move(page)));
         }
 
         m_executed = true;
@@ -388,8 +388,8 @@ sql_result data_query::make_request_fetch(std::unique_ptr<result_page> &page) {
         response = m_connection.sync_request(protocol::client_operation::SQL_CURSOR_NEXT_PAGE,
             [&](protocol::writer &writer) { writer.write(*m_query_id); });
 
-        auto reader = std::make_unique<protocol::reader>(response.get_bytes_view());
-        page = std::make_unique<result_page>(std::move(response), std::move(reader));
+        auto reader = std::unique_ptr<protocol::reader>(new protocol::reader(response.get_bytes_view()));
+        page = std::unique_ptr<result_page>(new result_page(std::move(response), std::move(reader)));
     });
 
     return success ? sql_result::AI_SUCCESS : sql_result::AI_ERROR;

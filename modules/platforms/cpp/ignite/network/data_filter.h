@@ -23,7 +23,8 @@
 #include <memory>
 #include <vector>
 
-namespace ignite::network {
+namespace ignite {
+namespace network {
 
 /**
  * Data buffer.
@@ -68,4 +69,5 @@ protected:
 
 typedef std::vector<std::shared_ptr<data_filter>> data_filters;
 
-} // namespace ignite::network
+} // namespace network
+} // namespace ignite

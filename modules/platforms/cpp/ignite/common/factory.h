@@ -61,7 +61,7 @@ public:
      *
      * @return New instance of type @c T.
      */
-    [[nodiscard]] std::unique_ptr<TB> build() override { return std::make_unique<TC>(); }
+    [[nodiscard]] std::unique_ptr<TB> build() override { return std::unique_ptr<TC>(new TC); }
 };
 
 } // namespace ignite

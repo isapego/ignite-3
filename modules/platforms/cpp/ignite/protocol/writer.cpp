@@ -17,7 +17,7 @@
 
 #include "ignite/protocol/writer.h"
 
-namespace ignite::protocol {
+namespace ignite { namespace protocol {
 
 int writer::write_callback(void *data, const char *buf, size_t len) {
     if (!data)
@@ -35,4 +35,4 @@ int writer::write_callback(void *data, const char *buf, size_t len) {
     return 0;
 }
 
-} // namespace ignite::protocol
+} } // namespace ignite::protocol

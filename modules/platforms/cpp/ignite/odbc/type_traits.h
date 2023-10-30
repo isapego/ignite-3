@@ -20,8 +20,13 @@
 #include <ignite/common/ignite_type.h>
 
 #include <cstdint>
-#include <optional>
 #include <string>
+
+#if __cplusplus > 201402L
+# include <optional>
+#else
+# include "ignite/common/legacy_support.h"
+#endif
 
 namespace ignite {
 

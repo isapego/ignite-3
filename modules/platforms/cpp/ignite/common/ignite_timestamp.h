@@ -61,7 +61,7 @@ public:
      * @param other Instance to compare to.
      * @return Zero if equals, negative number if less, and positive if greater.
      */
-    [[nodiscard]] constexpr int compare(const ignite_timestamp &other) const noexcept {
+    [[nodiscard]] int compare(const ignite_timestamp &other) const noexcept {
         if (m_seconds != other.m_seconds) {
             return m_seconds < other.m_seconds ? -1 : 1;
         }
@@ -83,7 +83,7 @@ private:
  * @param rhs Second value.
  * @return true If the first value is equal to the second.
  */
-constexpr bool operator==(const ignite_timestamp &lhs, const ignite_timestamp &rhs) noexcept {
+inline bool operator==(const ignite_timestamp &lhs, const ignite_timestamp &rhs) noexcept {
     return lhs.compare(rhs) == 0;
 }
 
@@ -94,7 +94,7 @@ constexpr bool operator==(const ignite_timestamp &lhs, const ignite_timestamp &r
  * @param rhs Second value.
  * @return true If the first value is not equal to the second.
  */
-constexpr bool operator!=(const ignite_timestamp &lhs, const ignite_timestamp &rhs) noexcept {
+inline bool operator!=(const ignite_timestamp &lhs, const ignite_timestamp &rhs) noexcept {
     return lhs.compare(rhs) != 0;
 }
 
@@ -105,7 +105,7 @@ constexpr bool operator!=(const ignite_timestamp &lhs, const ignite_timestamp &r
  * @param rhs Second value.
  * @return true If the first value is less than the second.
  */
-constexpr bool operator<(const ignite_timestamp &lhs, const ignite_timestamp &rhs) noexcept {
+inline bool operator<(const ignite_timestamp &lhs, const ignite_timestamp &rhs) noexcept {
     return lhs.compare(rhs) < 0;
 }
 
@@ -116,7 +116,7 @@ constexpr bool operator<(const ignite_timestamp &lhs, const ignite_timestamp &rh
  * @param rhs Second value.
  * @return true If the first value is less than or equal to the second.
  */
-constexpr bool operator<=(const ignite_timestamp &lhs, const ignite_timestamp &rhs) noexcept {
+inline bool operator<=(const ignite_timestamp &lhs, const ignite_timestamp &rhs) noexcept {
     return lhs.compare(rhs) <= 0;
 }
 
@@ -127,7 +127,7 @@ constexpr bool operator<=(const ignite_timestamp &lhs, const ignite_timestamp &r
  * @param rhs Second value.
  * @return true If the first value is greater than the second.
  */
-constexpr bool operator>(const ignite_timestamp &lhs, const ignite_timestamp &rhs) noexcept {
+inline bool operator>(const ignite_timestamp &lhs, const ignite_timestamp &rhs) noexcept {
     return lhs.compare(rhs) > 0;
 }
 
@@ -138,7 +138,7 @@ constexpr bool operator>(const ignite_timestamp &lhs, const ignite_timestamp &rh
  * @param rhs Second value.
  * @return true If the first value is greater than or equal to the second.
  */
-constexpr bool operator>=(const ignite_timestamp &lhs, const ignite_timestamp &rhs) noexcept {
+inline bool operator>=(const ignite_timestamp &lhs, const ignite_timestamp &rhs) noexcept {
     return lhs.compare(rhs) >= 0;
 }
 

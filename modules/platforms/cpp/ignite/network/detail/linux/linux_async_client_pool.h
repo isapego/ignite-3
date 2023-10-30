@@ -30,7 +30,7 @@
 #include <memory>
 #include <mutex>
 
-namespace ignite::network::detail {
+namespace ignite { namespace network { namespace detail {
 
 /**
  * Linux-specific implementation of asynchronous client pool.
@@ -182,4 +182,4 @@ private:
     std::map<uint64_t, std::shared_ptr<linux_async_client>> m_client_id_map;
 };
 
-} // namespace ignite::network::detail
+} } } // namespace ignite::network::detail

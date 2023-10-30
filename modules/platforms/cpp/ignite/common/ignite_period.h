@@ -68,7 +68,7 @@ public:
      * @param other Instance to compare to.
      * @return Zero if equals, negative number if less, and positive if greater.
      */
-    constexpr int compare(const ignite_period &other) const noexcept {
+    int compare(const ignite_period &other) const noexcept {
         if (years != other.years) {
             return years - other.years;
         }
@@ -91,7 +91,7 @@ private:
  * @param rhs Second value.
  * @return true If the first value is equal to the second.
  */
-constexpr bool operator==(const ignite_period &lhs, const ignite_period &rhs) noexcept {
+inline bool operator==(const ignite_period &lhs, const ignite_period &rhs) noexcept {
     return lhs.compare(rhs) == 0;
 }
 
@@ -102,7 +102,7 @@ constexpr bool operator==(const ignite_period &lhs, const ignite_period &rhs) no
  * @param rhs Second value.
  * @return true If the first value is not equal to the second.
  */
-constexpr bool operator!=(const ignite_period &lhs, const ignite_period &rhs) noexcept {
+inline bool operator!=(const ignite_period &lhs, const ignite_period &rhs) noexcept {
     return lhs.compare(rhs) != 0;
 }
 
@@ -113,7 +113,7 @@ constexpr bool operator!=(const ignite_period &lhs, const ignite_period &rhs) no
  * @param rhs Second value.
  * @return true If the first value is less than the second.
  */
-constexpr bool operator<(const ignite_period &lhs, const ignite_period &rhs) noexcept {
+inline bool operator<(const ignite_period &lhs, const ignite_period &rhs) noexcept {
     return lhs.compare(rhs) < 0;
 }
 
@@ -124,7 +124,7 @@ constexpr bool operator<(const ignite_period &lhs, const ignite_period &rhs) noe
  * @param rhs Second value.
  * @return true If the first value is less than or equal to the second.
  */
-constexpr bool operator<=(const ignite_period &lhs, const ignite_period &rhs) noexcept {
+inline bool operator<=(const ignite_period &lhs, const ignite_period &rhs) noexcept {
     return lhs.compare(rhs) <= 0;
 }
 
@@ -135,7 +135,7 @@ constexpr bool operator<=(const ignite_period &lhs, const ignite_period &rhs) no
  * @param rhs Second value.
  * @return true If the first value is greater than the second.
  */
-constexpr bool operator>(const ignite_period &lhs, const ignite_period &rhs) noexcept {
+inline bool operator>(const ignite_period &lhs, const ignite_period &rhs) noexcept {
     return lhs.compare(rhs) > 0;
 }
 
@@ -146,7 +146,7 @@ constexpr bool operator>(const ignite_period &lhs, const ignite_period &rhs) noe
  * @param rhs Second value.
  * @return true If the first value is greater than or equal to the second.
  */
-constexpr bool operator>=(const ignite_period &lhs, const ignite_period &rhs) noexcept {
+inline bool operator>=(const ignite_period &lhs, const ignite_period &rhs) noexcept {
     return lhs.compare(rhs) >= 0;
 }
 

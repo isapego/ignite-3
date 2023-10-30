@@ -29,9 +29,15 @@
 #include <map>
 #include <memory>
 #include <msgpack.h>
-#include <string_view>
 
-namespace ignite::protocol {
+#if __cplusplus > 201402L
+# include <string_view>
+#else
+# include "ignite/common/legacy_support.h"
+#endif
+
+namespace ignite {
+namespace protocol {
 
 /**
  * Writer.
@@ -197,4 +203,5 @@ inline void write_message_to_buffer(buffer_adapter &buffer, const std::function<
     buffer.write_length_header();
 }
 
-} // namespace ignite::protocol
+} // namespace protocol
+} // namespace ignite

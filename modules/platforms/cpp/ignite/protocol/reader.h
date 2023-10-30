@@ -27,7 +27,7 @@
 #include <cstdint>
 #include <functional>
 
-namespace ignite::protocol {
+namespace ignite { namespace protocol {
 
 /**
  * Reader.
@@ -265,4 +265,4 @@ private:
     std::size_t m_offset{0};
 };
 
-} // namespace ignite::protocol
+} } // namespace ignite::protocol

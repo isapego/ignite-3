@@ -28,14 +28,19 @@
 
 #include <array>
 #include <functional>
-#include <optional>
 
 #include <cstddef>
 #include <cstdint>
 
+#if __cplusplus > 201402L
+# include <optional>
+#else
+# include "ignite/common/legacy_support.h"
+#endif
+
 struct msgpack_object;
 
-namespace ignite::protocol {
+namespace ignite { namespace protocol {
 
 class reader;
 
@@ -258,4 +263,4 @@ void append_primitive_with_type(binary_tuple_builder &builder, const primitive &
  */
 [[nodiscard]] primitive read_next_column(binary_tuple_parser &parser, ignite_type typ, std::int32_t scale);
 
-} // namespace ignite::protocol
+} } // namespace ignite::protocol

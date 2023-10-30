@@ -99,17 +99,17 @@ public:
     /**
      * Gets the raw data.
      */
-    [[nodiscard]] constexpr const std::vector<std::byte> &get_raw() const noexcept { return m_data; }
+    [[nodiscard]] const std::vector<std::byte> &get_raw() const noexcept { return m_data; }
 
     /**
      * Gets the size in bits.
      */
-    [[nodiscard]] constexpr std::int32_t get_size() const noexcept { return m_size; }
+    [[nodiscard]] std::int32_t get_size() const noexcept { return m_size; }
 
     /**
      * Check whether the bitset is empty.
      */
-    [[nodiscard]] constexpr bool is_empty() const noexcept { return m_size == 0; }
+    [[nodiscard]] bool is_empty() const noexcept { return m_size == 0; }
 
     /**
      * @brief Comparison operator.

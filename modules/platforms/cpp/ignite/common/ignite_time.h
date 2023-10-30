@@ -76,7 +76,7 @@ public:
      * @param other Instance to compare to.
      * @return Zero if equals, negative number if less, and positive if greater.
      */
-    [[nodiscard]] constexpr int compare(const ignite_time &other) const noexcept {
+    [[nodiscard]] int compare(const ignite_time &other) const noexcept {
         if (m_hour != other.m_hour) {
             return m_hour - other.m_hour;
         }
@@ -103,7 +103,7 @@ private:
  * @param rhs Second value.
  * @return true If the first value is equal to the second.
  */
-constexpr bool operator==(const ignite_time &lhs, const ignite_time &rhs) noexcept {
+inline bool operator==(const ignite_time &lhs, const ignite_time &rhs) noexcept {
     return lhs.compare(rhs) == 0;
 }
 
@@ -114,7 +114,7 @@ constexpr bool operator==(const ignite_time &lhs, const ignite_time &rhs) noexce
  * @param rhs Second value.
  * @return true If the first value is not equal to the second.
  */
-constexpr bool operator!=(const ignite_time &lhs, const ignite_time &rhs) noexcept {
+inline bool operator!=(const ignite_time &lhs, const ignite_time &rhs) noexcept {
     return lhs.compare(rhs) != 0;
 }
 
@@ -125,7 +125,7 @@ constexpr bool operator!=(const ignite_time &lhs, const ignite_time &rhs) noexce
  * @param rhs Second value.
  * @return true If the first value is less than the second.
  */
-constexpr bool operator<(const ignite_time &lhs, const ignite_time &rhs) noexcept {
+inline bool operator<(const ignite_time &lhs, const ignite_time &rhs) noexcept {
     return lhs.compare(rhs) < 0;
 }
 
@@ -136,7 +136,7 @@ constexpr bool operator<(const ignite_time &lhs, const ignite_time &rhs) noexcep
  * @param rhs Second value.
  * @return true If the first value is less than or equal to the second.
  */
-constexpr bool operator<=(const ignite_time &lhs, const ignite_time &rhs) noexcept {
+inline bool operator<=(const ignite_time &lhs, const ignite_time &rhs) noexcept {
     return lhs.compare(rhs) <= 0;
 }
 
@@ -147,7 +147,7 @@ constexpr bool operator<=(const ignite_time &lhs, const ignite_time &rhs) noexce
  * @param rhs Second value.
  * @return true If the first value is greater than the second.
  */
-constexpr bool operator>(const ignite_time &lhs, const ignite_time &rhs) noexcept {
+inline bool operator>(const ignite_time &lhs, const ignite_time &rhs) noexcept {
     return lhs.compare(rhs) > 0;
 }
 
@@ -158,7 +158,7 @@ constexpr bool operator>(const ignite_time &lhs, const ignite_time &rhs) noexcep
  * @param rhs Second value.
  * @return true If the first value is greater than or equal to the second.
  */
-constexpr bool operator>=(const ignite_time &lhs, const ignite_time &rhs) noexcept {
+inline bool operator>=(const ignite_time &lhs, const ignite_time &rhs) noexcept {
     return lhs.compare(rhs) >= 0;
 }
 

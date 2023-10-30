@@ -248,7 +248,7 @@ bool sql_connection::receive(std::vector<std::byte> &msg, std::int32_t timeout) 
     if (res == operation_result::FAIL)
         throw odbc_error(sql_state::S08S01_LINK_FAILURE, "Can not receive message header");
 
-    static_assert(sizeof(std::int32_t) == PROTOCOL_HEADER_SIZE);
+    static_assert(sizeof(std::int32_t) == PROTOCOL_HEADER_SIZE, "Protocol header size should be the same as int32");
     std::int32_t len = bytes::load<endian::BIG, std::int32_t>(len_buffer);
     if (len < 0) {
         close();
@@ -283,7 +283,7 @@ bool sql_connection::receive_and_check_magic(std::vector<std::byte> &msg, std::i
         return false;
     }
 
-    if (!std::equal(msg.begin(), msg.end(), protocol::MAGIC_BYTES.begin(), protocol::MAGIC_BYTES.end())) {
+    if (!std::equal(protocol::MAGIC_BYTES.begin(), protocol::MAGIC_BYTES.end(), msg.begin())) {
         add_status_record(sql_state::S08001_CANNOT_CONNECT,
             "Failed to receive magic bytes in handshake response. "
             "Possible reasons: wrong port number used, TLS is enabled on server but not on client.");

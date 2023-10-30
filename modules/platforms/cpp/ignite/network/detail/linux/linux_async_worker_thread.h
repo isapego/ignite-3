@@ -29,7 +29,7 @@
 #include <mutex>
 #include <thread>
 
-namespace ignite::network::detail {
+namespace ignite { namespace network { namespace detail {
 
 class linux_async_client_pool;
 
@@ -154,4 +154,4 @@ private:
     std::thread m_thread;
 };
 
-} // namespace ignite::network::detail
+} } } // namespace ignite::network::detail

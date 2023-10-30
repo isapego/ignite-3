@@ -17,7 +17,7 @@
 
 #pragma once
 
-namespace ignite::protocol {
+namespace ignite { namespace protocol {
 
 /**
  * Client operation code.
@@ -128,4 +128,4 @@ enum class message_type {
     NOTIFICATION = 1,
 };
 
-} // namespace ignite::protocol
+} } // namespace ignite::protocol

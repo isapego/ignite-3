@@ -56,7 +56,7 @@ namespace ignite {
  */
 template<typename T>
 int countr_zero(T value) noexcept {
-    static_assert(std::is_unsigned_v<T>, "countr_zero() doesn't support this type");
+    static_assert(std::is_unsigned<T>::value, "countr_zero() doesn't support this type");
     static_assert(sizeof(T) <= sizeof(unsigned long long), "countr_zero() doesn't support this type size");
 
 #if IGNITE_STD_BITOPS
@@ -66,9 +66,9 @@ int countr_zero(T value) noexcept {
         return std::numeric_limits<T>::digits;
     }
 
-    if constexpr (sizeof(T) <= sizeof(unsigned int)) {
+    if (sizeof(T) <= sizeof(unsigned int)) {
         return __builtin_ctz(value);
-    } else if constexpr (sizeof(T) <= sizeof(unsigned long)) {
+    } else if (sizeof(T) <= sizeof(unsigned long)) {
         return __builtin_ctzl(value);
     } else {
         return __builtin_ctzll(value);
@@ -90,7 +90,7 @@ int countr_zero(T value) noexcept {
  */
 template<typename T>
 int countl_zero(T value) noexcept {
-    static_assert(std::is_unsigned_v<T>, "countl_zero() doesn't support this type");
+    static_assert(std::is_unsigned<T>::value, "countl_zero() doesn't support this type");
     static_assert(sizeof(T) <= sizeof(unsigned long long), "countl_zero() doesn't support this type size");
 
 #if IGNITE_STD_BITOPS
@@ -100,10 +100,10 @@ int countl_zero(T value) noexcept {
         return std::numeric_limits<T>::digits;
     }
 
-    if constexpr (sizeof(T) <= sizeof(unsigned int)) {
+    if (sizeof(T) <= sizeof(unsigned int)) {
         constexpr auto extraBits = std::numeric_limits<unsigned int>::digits - std::numeric_limits<T>::digits;
         return __builtin_clz(value) - extraBits;
-    } else if constexpr (sizeof(T) <= sizeof(unsigned long)) {
+    } else if (sizeof(T) <= sizeof(unsigned long)) {
         constexpr auto extraBits = std::numeric_limits<unsigned long>::digits - std::numeric_limits<T>::digits;
         return __builtin_clzl(value) - extraBits;
     } else {
@@ -129,7 +129,7 @@ int countl_zero(T value) noexcept {
  */
 template<typename T>
 int bit_width(T value) noexcept {
-    static_assert(std::is_unsigned_v<T>, "bit_width() doesn't support this type");
+    static_assert(std::is_unsigned<T>::value, "bit_width() doesn't support this type");
 
 #if IGNITE_STD_INT_POW2
     return std::bit_width(value);
@@ -144,7 +144,7 @@ int bit_width(T value) noexcept {
  */
 template<typename T>
 T bit_floor(T value) noexcept {
-    static_assert(std::is_unsigned_v<T>, "bit_floor() doesn't support this type");
+    static_assert(std::is_unsigned<T>::value, "bit_floor() doesn't support this type");
 
 #if IGNITE_STD_INT_POW2
     return std::bit_floor(value);
@@ -158,7 +158,7 @@ T bit_floor(T value) noexcept {
  */
 template<typename T>
 T bit_ceil(T value) noexcept {
-    static_assert(std::is_unsigned_v<T>, "bit_ceil() doesn't support this type");
+    static_assert(std::is_unsigned<T>::value, "bit_ceil() doesn't support this type");
 
 #if IGNITE_STD_INT_POW2
     return std::bit_ceil(value);

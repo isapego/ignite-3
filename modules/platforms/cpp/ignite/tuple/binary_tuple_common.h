@@ -17,6 +17,8 @@
 
 #pragma once
 
+#include "ignite/common/legacy_support.h"
+
 #include <cstddef>
 #include <cstdint>
 
@@ -43,7 +45,7 @@ constexpr std::byte VARLEN_ENTRY_SIZE_MASK{0b11};
 constexpr std::byte OFFSET_TABLE_OVERSIZED{0b100};
 
 /** Encodes size as a bit mask. */
-constexpr unsigned int size_to_flags(tuple_size_t size) noexcept {
+inline unsigned int size_to_flags(tuple_size_t size) noexcept {
     if (size <= UINT8_MAX) {
         return 0b00;
     }

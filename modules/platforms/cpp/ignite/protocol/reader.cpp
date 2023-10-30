@@ -19,7 +19,7 @@
 
 #include <ignite/protocol/utils.h>
 
-namespace ignite::protocol {
+namespace ignite { namespace protocol {
 
 reader::reader(bytes_view buffer)
     : m_buffer(buffer)
@@ -47,4 +47,4 @@ void reader::next() {
         &m_current_val, reinterpret_cast<const char *>(m_buffer.data()), m_buffer.size(), &m_offset_next);
 }
 
-} // namespace ignite::protocol
+} } // namespace ignite::protocol

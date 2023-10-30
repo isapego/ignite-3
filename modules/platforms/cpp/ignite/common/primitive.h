@@ -31,10 +31,15 @@
 #include "uuid.h"
 
 #include <cstdint>
-#include <optional>
 #include <type_traits>
-#include <variant>
 #include <vector>
+
+#if __cplusplus > 201402L
+# include <optional>
+# include <variant>
+#else
+# include "ignite/common/legacy_support.h"
+#endif
 
 namespace ignite {
 
@@ -134,7 +139,7 @@ public:
      * @param value Value.
      */
     primitive(std::string_view value) // NOLINT(google-explicit-constructor)
-        : m_value(std::string(value)) {}
+        : m_value(std::string(value.begin(), value.end())) {}
 
     /**
      * Constructor for string value.
@@ -231,7 +236,7 @@ public:
      * @param value Value.
      */
     primitive(bit_array value) // NOLINT(google-explicit-constructor)
-        : m_value(value) {}
+        : m_value(std::move(value)) {}
 
     /**
      * Get underlying value.
@@ -242,30 +247,7 @@ public:
      */
     template<typename T>
     [[nodiscard]] const T &get() const {
-        if constexpr (std::is_same_v<T, bool> // Bool
-            || std::is_same_v<T, std::int8_t> // Int8
-            || std::is_same_v<T, std::int16_t> // Int16
-            || std::is_same_v<T, std::int32_t> // Int32
-            || std::is_same_v<T, std::int64_t> // Int64
-            || std::is_same_v<T, float> // Float
-            || std::is_same_v<T, double> // Double
-            || std::is_same_v<T, uuid> // Uuid
-            || std::is_same_v<T, std::string> // String
-            || std::is_same_v<T, std::vector<std::byte>> // Bytes
-            || std::is_same_v<T, big_decimal> // Decimal
-            || std::is_same_v<T, big_integer> // Number
-            || std::is_same_v<T, ignite_date> // Date
-            || std::is_same_v<T, ignite_date_time> // DateTime
-            || std::is_same_v<T, ignite_time> // Time
-            || std::is_same_v<T, ignite_timestamp> // Timestamp
-            || std::is_same_v<T, ignite_period> // Period
-            || std::is_same_v<T, ignite_duration> // Duration
-            || std::is_same_v<T, bit_array> // Bit Array
-        ) {
-            return std::get<T>(m_value);
-        } else {
-            static_assert(sizeof(T) == 0, "Type is not an Ignite primitive type or is not yet supported");
-        }
+        return std::get<T>(m_value);
     }
 
     /**
@@ -293,7 +275,7 @@ public:
      * @param rhs Second value.
      * @return true If values are equal.
      */
-    friend constexpr bool operator==(const primitive &lhs, const primitive &rhs) noexcept {
+    friend bool operator==(const primitive &lhs, const primitive &rhs) noexcept {
         return lhs.m_value == rhs.m_value;
     }
 
@@ -304,7 +286,7 @@ public:
      * @param rhs Second value.
      * @return true If values are not equal.
      */
-    friend constexpr bool operator!=(const primitive &lhs, const primitive &rhs) noexcept {
+    friend bool operator!=(const primitive &lhs, const primitive &rhs) noexcept {
         return lhs.m_value != rhs.m_value;
     }
 

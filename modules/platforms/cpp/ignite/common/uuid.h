@@ -88,7 +88,7 @@ public:
      *
      * @return The variant number of this instance.
      */
-    [[nodiscard]] constexpr std::int32_t variant() const noexcept {
+    [[nodiscard]] std::int32_t variant() const noexcept {
         auto least0 = static_cast<uint64_t>(least);
         return static_cast<std::int32_t>((least0 >> (64 - (least0 >> 62))) & (least >> 63));
     }
@@ -99,7 +99,7 @@ public:
      * @param other Instance to compare to.
      * @return Zero if equals, negative number if less, and positive if greater.
      */
-    [[nodiscard]] constexpr int compare(const uuid &other) const noexcept {
+    [[nodiscard]] int compare(const uuid &other) const noexcept {
         if (most != other.most) {
             return most < other.most ? -1 : 1;
         }
@@ -124,7 +124,7 @@ private:
  * @param rhs Second value.
  * @return true If the first value is equal to the second.
  */
-constexpr bool operator==(const uuid &lhs, const uuid &rhs) noexcept {
+inline bool operator==(const uuid &lhs, const uuid &rhs) noexcept {
     return lhs.compare(rhs) == 0;
 }
 
@@ -135,7 +135,7 @@ constexpr bool operator==(const uuid &lhs, const uuid &rhs) noexcept {
  * @param rhs Second value.
  * @return true If the first value is not equal to the second.
  */
-constexpr bool operator!=(const uuid &lhs, const uuid &rhs) noexcept {
+inline bool operator!=(const uuid &lhs, const uuid &rhs) noexcept {
     return lhs.compare(rhs) != 0;
 }
 
@@ -146,7 +146,7 @@ constexpr bool operator!=(const uuid &lhs, const uuid &rhs) noexcept {
  * @param rhs Second value.
  * @return true If the first value is less than the second.
  */
-constexpr bool operator<(const uuid &lhs, const uuid &rhs) noexcept {
+inline bool operator<(const uuid &lhs, const uuid &rhs) noexcept {
     return lhs.compare(rhs) < 0;
 }
 
@@ -157,7 +157,7 @@ constexpr bool operator<(const uuid &lhs, const uuid &rhs) noexcept {
  * @param rhs Second value.
  * @return true If the first value is less than or equal to the second.
  */
-constexpr bool operator<=(const uuid &lhs, const uuid &rhs) noexcept {
+inline bool operator<=(const uuid &lhs, const uuid &rhs) noexcept {
     return lhs.compare(rhs) <= 0;
 }
 
@@ -168,7 +168,7 @@ constexpr bool operator<=(const uuid &lhs, const uuid &rhs) noexcept {
  * @param rhs Second value.
  * @return true If the first value is greater than the second.
  */
-constexpr bool operator>(const uuid &lhs, const uuid &rhs) noexcept {
+inline bool operator>(const uuid &lhs, const uuid &rhs) noexcept {
     return lhs.compare(rhs) > 0;
 }
 
@@ -179,7 +179,7 @@ constexpr bool operator>(const uuid &lhs, const uuid &rhs) noexcept {
  * @param rhs Second value.
  * @return true If the first value is greater than or equal to the second.
  */
-constexpr bool operator>=(const uuid &lhs, const uuid &rhs) noexcept {
+inline bool operator>=(const uuid &lhs, const uuid &rhs) noexcept {
     return lhs.compare(rhs) >= 0;
 }
 

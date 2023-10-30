@@ -24,7 +24,8 @@
 #include <memory>
 #include <vector>
 
-namespace ignite::network {
+namespace ignite {
+namespace network {
 
 /**
  * Non-owning data buffer.
@@ -207,4 +208,5 @@ private:
     size_t m_pos{0};
 };
 
-} // namespace ignite::network
+} // namespace network
+} // namespace ignite

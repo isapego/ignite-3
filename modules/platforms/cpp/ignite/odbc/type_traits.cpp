@@ -77,46 +77,46 @@ const char *statement_attr_id_to_string(long id) {
 namespace sql_type_name {
 
 /** BOOLEAN SQL type name constant. */
-const inline std::string BOOLEAN("BOOLEAN");
+const std::string BOOLEAN("BOOLEAN");
 
 /** TINYINT SQL type name constant. */
-const inline std::string TINYINT("TINYINT");
+const std::string TINYINT("TINYINT");
 
 /** SMALLINT SQL type name constant. */
-const inline std::string SMALLINT("SMALLINT");
+const std::string SMALLINT("SMALLINT");
 
 /** INTEGER SQL type name constant. */
-const inline std::string INTEGER("INTEGER");
+const std::string INTEGER("INTEGER");
 
 /** BIGINT SQL type name constant. */
-const inline std::string BIGINT("BIGINT");
+const std::string BIGINT("BIGINT");
 
 /** FLOAT SQL type name constant. */
-const inline std::string REAL("REAL");
+const std::string REAL("REAL");
 
 /** DOUBLE SQL type name constant. */
-const inline std::string DOUBLE("DOUBLE");
+const std::string DOUBLE("DOUBLE");
 
 /** VARCHAR SQL type name constant. */
-const inline std::string VARCHAR("VARCHAR");
+const std::string VARCHAR("VARCHAR");
 
 /** BINARY SQL type name constant. */
-const inline std::string BINARY("VARBINARY");
+const std::string BINARY("VARBINARY");
 
 /** TIME SQL type name constant. */
-const inline std::string TIME("TIME");
+const std::string TIME("TIME");
 
 /** TIMESTAMP SQL type name constant. */
-const inline std::string TIMESTAMP("TIMESTAMP");
+const std::string TIMESTAMP("TIMESTAMP");
 
 /** DATE SQL type name constant. */
-const inline std::string DATE("DATE");
+const std::string DATE("DATE");
 
 /** DECIMAL SQL type name constant. */
-const inline std::string DECIMAL("DECIMAL");
+const std::string DECIMAL("DECIMAL");
 
 /** UUID SQL type name constant. */
-const inline std::string UUID("UUID");
+const std::string UUID("UUID");
 
 } // namespace sql_type_name
 

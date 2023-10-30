@@ -63,7 +63,7 @@ void parameter_set::prepare() {
 
 bool parameter_set::is_data_at_exec_needed() const {
     return std::any_of(
-        m_params.begin(), m_params.end(), [](const auto &param) { return !param.second.is_data_ready(); });
+        m_params.begin(), m_params.end(), [](const parameter_binding_map::value_type &param) { return !param.second.is_data_ready(); });
 }
 
 void parameter_set::set_params_processed_ptr(SQLULEN *ptr) {

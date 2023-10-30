@@ -17,7 +17,7 @@
 
 #include "error_handling_filter.h"
 
-namespace ignite::network {
+namespace ignite { namespace network {
 
 void error_handling_filter::on_connection_success(const end_point &addr, uint64_t id) {
     close_connection_on_exception(id, [this, &addr, id] { data_filter_adapter::on_connection_success(addr, id); });
@@ -63,4 +63,4 @@ void error_handling_filter::close_connection_on_exception(uint64_t id, const std
     }
 }
 
-} // namespace ignite::network
+} } // namespace ignite::network

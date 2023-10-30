@@ -19,6 +19,10 @@
 
 #include "config.h"
 
+#if __cplusplus <= 201402L
+# include "legacy_support.h"
+#endif
+
 #include <cstddef>
 #include <cstdint>
 #include <iostream>

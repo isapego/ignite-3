@@ -30,7 +30,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-namespace ignite::network::detail {
+namespace ignite { namespace network { namespace detail {
 
 namespace {
 
@@ -145,7 +145,7 @@ void linux_async_worker_thread::handle_new_connections() {
         size_t idx = rand() % m_non_connected.size();
         const tcp_range &range = m_non_connected.at(idx);
 
-        m_current_connection = std::make_unique<connecting_context>(range);
+        m_current_connection = std::unique_ptr<connecting_context>(new connecting_context(range));
         addr = m_current_connection->next();
         if (!addr) {
             m_current_connection.reset();
@@ -309,4 +309,4 @@ bool linux_async_worker_thread::should_initiate_new_connection() const {
     return !m_current_client && m_non_connected.size() > m_min_addrs;
 }
 
-} // namespace ignite::network::detail
+} } } // namespace ignite::network::detail

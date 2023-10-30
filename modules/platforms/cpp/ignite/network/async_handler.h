@@ -22,9 +22,15 @@
 #include <ignite/network/data_buffer.h>
 
 #include <cstdint>
-#include <optional>
 
-namespace ignite::network {
+#if __cplusplus > 201402L
+# include <optional>
+#else
+# include "ignite/common/legacy_support.h"
+#endif
+
+namespace ignite {
+namespace network {
 
 /**
  * Asynchronous events handler.
@@ -76,4 +82,5 @@ public:
     virtual void on_message_sent(uint64_t id) = 0;
 };
 
-} // namespace ignite::network
+} // namespace network
+} // namespace ignite

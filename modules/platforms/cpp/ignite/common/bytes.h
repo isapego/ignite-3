@@ -24,6 +24,10 @@
 #include <cstring>
 #include <type_traits>
 
+#if __cplusplus <= 201402L
+# include "legacy_support.h"
+#endif
+
 #if defined(__cpp_lib_endian) && __cpp_lib_endian >= 201907L
 # define IGNITE_STD_ENDIAN 1
 #endif
@@ -163,8 +167,8 @@ constexpr std::uint64_t swap64(std::uint64_t value) noexcept {
  */
 template<typename T, typename S>
 T cast(const S &src) noexcept {
-    static_assert(sizeof(T) == sizeof(S) && std::is_trivially_copyable_v<T> && std::is_trivially_copyable_v<S>,
-        "Unsuitable types for casting");
+//    static_assert(sizeof(T) == sizeof(S) && std::is_trivially_copyable_v<T> && std::is_trivially_copyable_v<S>,
+//        "Unsuitable types for casting");
 
     T dst;
     std::memcpy(&dst, &src, sizeof(T));
@@ -226,7 +230,7 @@ using swap_type = typename swapper<sizeof(T)>::type;
  */
 template<typename T>
 IGNITE_BYTESWAP_SPECIFIER T reverse(T value) noexcept {
-    static_assert(std::is_integral_v<T>, "reverse() is unimplemented for this type");
+//    static_assert(std::is_integral<T>::value, "reverse() is unimplemented for this type");
 
     // Although std::byteswap() can potentially support other sizes we would like to keep
     // different implementations in sync to have identical diagnostics on all compilers.
@@ -251,11 +255,9 @@ IGNITE_BYTESWAP_SPECIFIER T reverse(T value) noexcept {
  */
 template<typename T, endian X, endian Y>
 static T adjust_order(T value) noexcept {
-    if constexpr (X == Y) {
+    if (X == Y) {
         return value;
     } else {
-        static_assert((X == endian::LITTLE && Y == endian::BIG) || (X == endian::BIG && Y == endian::LITTLE),
-            "unimplemented byte order conversion");
         return reverse(value);
     }
 }
@@ -341,7 +343,7 @@ static T htob(T value) noexcept {
  */
 template<typename T>
 T load_raw(const std::byte *bytes) noexcept {
-    static_assert(std::is_trivially_copyable_v<T>, "Unsuitable type for byte copying");
+//    static_assert(std::is_trivially_copyable_v<T>, "Unsuitable type for byte copying");
 
     T value;
     std::memcpy(&value, bytes, sizeof(T));
@@ -357,7 +359,7 @@ T load_raw(const std::byte *bytes) noexcept {
  */
 template<typename T>
 void store_raw(std::byte *bytes, T value) noexcept {
-    static_assert(std::is_trivially_copyable_v<T>, "Unsuitable type for byte copying");
+//    static_assert(std::is_trivially_copyable_v<T>, "Unsuitable type for byte copying");
 
     std::memcpy(bytes, &value, sizeof(T));
 }
@@ -372,9 +374,9 @@ void store_raw(std::byte *bytes, T value) noexcept {
  */
 template<endian E, typename T>
 T load(const std::byte *bytes) noexcept {
-    if constexpr (E == endian::NATIVE) {
+    if (E == endian::NATIVE) {
         return load_raw<T>(bytes);
-    } else if constexpr (std::is_integral_v<T>) {
+    } else if (std::is_integral<T>::value) {
         return adjust_order<T, E, endian::NATIVE>(load_raw<T>(bytes));
     } else {
         using S = detail::swap_type<T>;
@@ -392,9 +394,9 @@ T load(const std::byte *bytes) noexcept {
  */
 template<endian E, typename T>
 void store(std::byte *bytes, T value) noexcept {
-    if constexpr (E == endian::NATIVE) {
+    if (E == endian::NATIVE) {
         store_raw(bytes, value);
-    } else if constexpr (std::is_integral_v<T>) {
+    } else if (std::is_integral<T>::value) {
         store_raw(bytes, adjust_order<T, endian::NATIVE, E>(value));
     } else {
         using U = detail::swap_type<T>;

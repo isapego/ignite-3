@@ -26,7 +26,8 @@
 #include <map>
 #include <vector>
 
-namespace ignite::protocol {
+namespace ignite {
+namespace protocol {
 
 /**
  * Handshake response.
@@ -58,4 +59,5 @@ std::vector<std::byte> make_handshake_request(
  */
 handshake_response parse_handshake_response(bytes_view message);
 
-} // namespace ignite::protocol
+} // namespace protocol
+} // namespace ignite

@@ -24,11 +24,11 @@
 #include <sys/epoll.h>
 #include <sys/socket.h>
 
-namespace ignite::network::detail {
+namespace ignite { namespace network { namespace detail {
 
 connecting_context::connecting_context(tcp_range range)
-    : m_range(std::move(range))
-    , m_next_port(range.port)
+    : m_next_port(range.port)
+    , m_range(std::move(range))
     , m_info(nullptr)
     , m_current_info(nullptr) {
 }
@@ -92,4 +92,4 @@ std::shared_ptr<linux_async_client> connecting_context::to_client(int fd) {
     return std::make_shared<linux_async_client>(fd, current_address(), m_range);
 }
 
-} // namespace ignite::network::detail
+} } } // namespace ignite::network::detail

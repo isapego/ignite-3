@@ -35,19 +35,19 @@ public:
     /** Default values for configuration. */
     struct default_value {
         /** Default value for fetch results page size attribute. */
-        static inline const std::int32_t page_size{1024};
+        static const std::int32_t page_size{1024};
 
         /** Default value for Driver attribute. */
-        static inline const std::string host{"localhost"};
+        static const std::string host;
 
         /** Default value for TCP port attribute. */
-        static inline const std::uint16_t port{10800};
+        static const std::uint16_t port{10800};
 
         /** Default value for address attribute. */
-        static inline const std::vector<end_point> address{{host, port}};
+        static const std::vector<end_point> address;
 
         /** Default value for Driver attribute. */
-        static inline const std::string schema{"PUBLIC"};
+        static const std::string schema;
     };
 
     // Default.

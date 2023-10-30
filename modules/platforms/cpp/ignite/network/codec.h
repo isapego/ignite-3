@@ -21,7 +21,8 @@
 #include <ignite/common/ignite_error.h>
 #include <ignite/network/data_buffer.h>
 
-namespace ignite::network {
+namespace ignite {
+namespace network {
 
 /**
  * Codec class.
@@ -53,4 +54,5 @@ public:
     virtual data_buffer_ref decode(data_buffer_ref &data) = 0;
 };
 
-} // namespace ignite::network
+} // namespace network
+} // namespace ignite

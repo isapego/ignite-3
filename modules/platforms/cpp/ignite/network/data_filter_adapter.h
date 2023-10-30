@@ -19,9 +19,13 @@
 
 #include <ignite/network/data_filter.h>
 
-#include <optional>
+#if __cplusplus > 201402L
+# include <optional>
+#else
+# include "ignite/common/legacy_support.h"
+#endif
 
-namespace ignite::network {
+namespace ignite { namespace network {
 
 /**
  * Data filter adapter.
@@ -110,4 +114,4 @@ public:
     }
 };
 
-} // namespace ignite::network
+} } // namespace ignite::network

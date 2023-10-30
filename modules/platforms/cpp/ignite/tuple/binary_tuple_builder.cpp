@@ -120,7 +120,7 @@ void binary_tuple_builder::append_int8_ptr(std::int8_t *bytes) {
 void binary_tuple_builder::append_int16(std::int16_t value) {
     const tuple_size_t size = gauge_int16(value);
 
-    if constexpr (!is_little_endian_platform()) {
+    if (!is_little_endian_platform()) {
         value = bytes::reverse(value);
     }
     append_bytes({reinterpret_cast<const std::byte *>(&value), size});
@@ -131,7 +131,7 @@ void binary_tuple_builder::append_int16_ptr(std::int16_t *bytes) {
 
     const tuple_size_t size = gauge_int16(value);
 
-    if constexpr (is_little_endian_platform()) {
+    if (is_little_endian_platform()) {
         append_bytes({reinterpret_cast<const std::byte *>(bytes), size});
     } else {
         value = bytes::reverse(value);
@@ -142,7 +142,7 @@ void binary_tuple_builder::append_int16_ptr(std::int16_t *bytes) {
 void binary_tuple_builder::append_int32(std::int32_t value) {
     const tuple_size_t size = gauge_int32(value);
 
-    if constexpr (!is_little_endian_platform()) {
+    if (!is_little_endian_platform()) {
         value = bytes::reverse(value);
     }
     append_bytes({reinterpret_cast<const std::byte *>(&value), size});
@@ -153,7 +153,7 @@ void binary_tuple_builder::append_int32_ptr(std::int32_t *bytes) {
 
     const tuple_size_t size = gauge_int32(value);
 
-    if constexpr (is_little_endian_platform()) {
+    if (is_little_endian_platform()) {
         append_bytes({reinterpret_cast<const std::byte *>(bytes), size});
     } else {
         value = bytes::reverse(value);
@@ -164,7 +164,7 @@ void binary_tuple_builder::append_int32_ptr(std::int32_t *bytes) {
 void binary_tuple_builder::append_int64(std::int64_t value) {
     const tuple_size_t size = gauge_int64(value);
 
-    if constexpr (!is_little_endian_platform()) {
+    if (!is_little_endian_platform()) {
         value = bytes::reverse(value);
     }
     append_bytes({reinterpret_cast<const std::byte *>(&value), size});
@@ -175,7 +175,7 @@ void binary_tuple_builder::append_int64_ptr(std::int64_t *bytes) {
 
     const tuple_size_t size = gauge_int64(value);
 
-    if constexpr (is_little_endian_platform()) {
+    if (is_little_endian_platform()) {
         append_bytes({reinterpret_cast<const std::byte *>(bytes), size});
     } else {
         value = bytes::reverse(value);

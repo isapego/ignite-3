@@ -21,7 +21,7 @@
 #include <ignite/common/ignite_error.h>
 #include <ignite/protocol/utils.h>
 
-namespace ignite::protocol {
+namespace ignite { namespace protocol {
 
 void buffer_adapter::write_length_header() {
     if (m_length_pos == std::numeric_limits<std::size_t>::max() || m_length_pos + LENGTH_HEADER_SIZE > m_buffer.size())
@@ -32,4 +32,4 @@ void buffer_adapter::write_length_header() {
     bytes::store<endian::BIG, int32_t>(m_buffer.data() + m_length_pos, length);
 }
 
-} // namespace ignite::protocol
+} } // namespace ignite::protocol

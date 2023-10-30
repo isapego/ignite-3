@@ -29,7 +29,9 @@
 #include <memory>
 #include <mutex>
 
-namespace ignite::network::detail {
+namespace ignite {
+namespace network {
+namespace detail {
 
 /**
  * Linux-specific implementation of async network client.
@@ -214,4 +216,6 @@ private:
     ignite_error m_close_err;
 };
 
-} // namespace ignite::network::detail
+} // namespace detail
+} // namespace network
+} // namespace ignite

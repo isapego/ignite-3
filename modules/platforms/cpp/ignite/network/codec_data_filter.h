@@ -22,9 +22,14 @@
 
 #include <map>
 #include <mutex>
-#include <optional>
 
-namespace ignite::network {
+#if __cplusplus > 201402L
+# include <optional>
+#else
+# include "ignite/common/legacy_support.h"
+#endif
+
+namespace ignite { namespace network {
 
 /**
  * Data filter that uses codecs inside to encode/decode data.
@@ -92,4 +97,4 @@ private:
     std::mutex m_codecs_mutex;
 };
 
-} // namespace ignite::network
+} } // namespace ignite::network

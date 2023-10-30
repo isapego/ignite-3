@@ -18,10 +18,16 @@
 #pragma once
 
 #include <cstdint>
-#include <optional>
 #include <string>
 
-namespace ignite::network {
+#if __cplusplus > 201402L
+# include <optional>
+#else
+# include "ignite/common/legacy_support.h"
+#endif
+
+namespace ignite {
+namespace network {
 
 /**
  * TCP port range.
@@ -153,4 +159,5 @@ inline bool operator>=(const tcp_range &val1, const tcp_range &val2) {
     return val1.compare(val2) >= 0;
 }
 
-} // namespace ignite::network
+} // namespace network
+} // namespace ignite

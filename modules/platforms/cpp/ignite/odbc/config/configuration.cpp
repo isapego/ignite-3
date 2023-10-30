@@ -25,23 +25,27 @@
 /** Configuration keys . */
 namespace key {
 /** Key for fetch results page size attribute. */
-static inline const std::string page_size{"page_size"};
+static const std::string page_size{"page_size"};
 
 /** Key for Driver attribute. */
-static inline const std::string host{"host"};
+static const std::string host{"host"};
 
 /** Key for TCP port attribute. */
-static inline const std::string port{"port"};
+static const std::string port{"port"};
 
 /** Key for address attribute. */
-static inline const std::string address{"address"};
+static const std::string address{"address"};
 
 /** Key for address attribute. */
-static inline const std::string schema{"schema"};
+static const std::string schema{"schema"};
 
 } // namespace key
 
 namespace ignite {
+
+const std::string configuration::default_value::host{"localhost"};
+const std::vector<end_point> configuration::default_value::address{{host, port}};
+const std::string configuration::default_value::schema{"PUBLIC"};
 
 void try_get_string_param(
     value_with_default<std::string> &dst, const config_map &config_params, const std::string &key) {

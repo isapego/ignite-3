@@ -24,7 +24,9 @@
 # define SOCKET_ERROR (-1)
 #endif // SOCKET_ERROR
 
-namespace ignite::network::detail {
+namespace ignite {
+namespace network {
+namespace detail {
 
 /**
  * Get socket error message for the error code.
@@ -69,4 +71,6 @@ int wait_on_socket(int socket, std::int32_t timeout, bool rd);
  */
 bool set_non_blocking_mode(int socket_fd, bool non_blocking);
 
-} // namespace ignite::network::detail
+} // namespace detail
+} // namespace network
+} // namespace ignite

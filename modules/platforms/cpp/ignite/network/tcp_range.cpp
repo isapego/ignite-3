@@ -18,7 +18,7 @@
 #include "tcp_range.h"
 
 #include <algorithm>
-#include <charconv>
+#include <sstream>
 #include <limits>
 
 namespace {
@@ -43,9 +43,9 @@ uint16_t parsePort(std::string_view value) {
         return 0;
 
     int port;
-    auto res = std::from_chars(port_str.data(), port_str.data() + port_str.size(), port);
-    if (res.ec != std::errc())
-        return 0;
+    std::stringstream conv;
+    conv << port_str;
+    conv >> port;
 
     // Checking that number is within TCP port range
     if (port <= 0 || port > 0xFFFF)
@@ -56,14 +56,14 @@ uint16_t parsePort(std::string_view value) {
 
 } // namespace
 
-namespace ignite::network {
+namespace ignite { namespace network {
 
 std::optional<tcp_range> tcp_range::parse(std::string_view str, uint16_t def_port) {
     tcp_range res;
     size_t colon_num = std::count(str.begin(), str.end(), ':');
 
     if (colon_num == 0) {
-        res.host = str;
+        res.host.assign(str.begin(), str.end());
         res.port = def_port;
         res.range = 0;
 
@@ -75,7 +75,8 @@ std::optional<tcp_range> tcp_range::parse(std::string_view str, uint16_t def_por
 
     size_t colon_pos = str.find(':');
 
-    res.host = str.substr(0, colon_pos);
+    auto hh = str.substr(0, colon_pos);
+    res.host.assign(hh.begin(), hh.end());
 
     if (colon_pos == str.size() - 1)
         return std::nullopt;
@@ -128,4 +129,4 @@ int tcp_range::compare(const tcp_range &other) const {
     return host.compare(other.host);
 }
 
-} // namespace ignite::network
+} } // namespace ignite::network

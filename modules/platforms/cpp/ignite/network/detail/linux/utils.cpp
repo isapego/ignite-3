@@ -19,7 +19,7 @@
 
 #include <cstring>
 
-namespace ignite::network::detail {
+namespace ignite { namespace network { namespace detail {
 
 #if defined(__linux__)
 std::string get_last_system_error() {
@@ -64,4 +64,4 @@ std::string get_last_system_error() {
 }
 #endif
 
-} // namespace ignite::network::detail
+} } } // namespace ignite::network::detail

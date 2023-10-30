@@ -22,7 +22,7 @@
 
 #include <algorithm>
 
-namespace ignite::network::detail {
+namespace ignite { namespace network { namespace detail {
 
 linux_async_client_pool::linux_async_client_pool()
     : m_stopping(true)
@@ -159,9 +159,9 @@ void linux_async_client_pool::internal_stop() {
     {
         std::lock_guard<std::mutex> lock(m_clients_mutex);
 
-        for (auto [_, client] : m_client_id_map) {
+        for (auto &pair : m_client_id_map) {
             ignite_error err("Client stopped");
-            handle_connection_closed(client->id(), err);
+            handle_connection_closed(pair.second->id(), err);
         }
 
         m_client_id_map.clear();
@@ -178,4 +178,4 @@ std::shared_ptr<linux_async_client> linux_async_client_pool::find_client(uint64_
     return it->second;
 }
 
-} // namespace ignite::network::detail
+} } } // namespace ignite::network::detail

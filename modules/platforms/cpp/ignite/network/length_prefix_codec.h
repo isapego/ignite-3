@@ -23,7 +23,7 @@
 #include <cstddef>
 #include <vector>
 
-namespace ignite::network {
+namespace ignite { namespace network {
 
 /**
  * Codec that decodes messages prefixed with int32 length.
@@ -85,4 +85,4 @@ private:
 /** Factory for length_prefix_codec. */
 typedef basic_factory<codec, length_prefix_codec> length_prefix_codec_factory;
 
-} // namespace ignite::network
+} } // namespace ignite::network

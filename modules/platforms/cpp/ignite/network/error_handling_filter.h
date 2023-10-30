@@ -21,7 +21,7 @@
 
 #include <functional>
 
-namespace ignite::network {
+namespace ignite { namespace network {
 
 /**
  * Filter that handles exceptions thrown by upper level handlers.
@@ -77,4 +77,4 @@ private:
     void close_connection_on_exception(uint64_t id, const std::function<void()> &func);
 };
 
-} // namespace ignite::network
+} } // namespace ignite::network

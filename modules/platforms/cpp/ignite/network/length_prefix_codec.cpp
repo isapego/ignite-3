@@ -20,7 +20,7 @@
 #include <ignite/common/bytes.h>
 #include <ignite/protocol/utils.h>
 
-namespace ignite::network {
+namespace ignite { namespace network {
 
 length_prefix_codec::length_prefix_codec()
     : m_packet_size(-1)
@@ -46,7 +46,7 @@ data_buffer_ref length_prefix_codec::decode(data_buffer_ref &data) {
         if (m_packet.size() < protocol::MAGIC_BYTES.size())
             return {};
 
-        if (!std::equal(protocol::MAGIC_BYTES.begin(), protocol::MAGIC_BYTES.end(), m_packet.begin(), m_packet.end()))
+        if (!std::equal(protocol::MAGIC_BYTES.begin(), protocol::MAGIC_BYTES.end(), m_packet.begin()))
             throw ignite_error("Unknown protocol response");
 
         reset_buffer();
@@ -81,4 +81,4 @@ void length_prefix_codec::consume(data_buffer_ref &data, size_t desired) {
     data.consume_by(m_packet, size_t(to_copy));
 }
 
-} // namespace ignite::network
+} } // namespace ignite::network

@@ -21,9 +21,14 @@
 
 #include <limits>
 #include <map>
-#include <optional>
 #include <string>
 #include <vector>
+
+#if __cplusplus > 201402L
+# include <optional>
+#else
+# include "ignite/common/legacy_support.h"
+#endif
 
 namespace ignite {
 

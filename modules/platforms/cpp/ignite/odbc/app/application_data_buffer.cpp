@@ -1394,8 +1394,8 @@ ignite_timestamp application_data_buffer::get_timestamp() const {
     if (nanos < 0)
         nanos = 0;
 
-    if (nanos > 999'999'999)
-        nanos = 999'999'999;
+    if (nanos > 999999999)
+        nanos = 999999999;
 
     auto ctime = mktime(&tm_time);
     return {ctime, nanos};

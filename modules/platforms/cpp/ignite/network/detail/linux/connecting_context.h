@@ -26,7 +26,9 @@
 
 #include <netdb.h>
 
-namespace ignite::network::detail {
+namespace ignite {
+namespace network {
+namespace detail {
 
 /**
  * Connecting context.
@@ -75,11 +77,11 @@ public:
     std::shared_ptr<linux_async_client> to_client(int fd);
 
 private:
-    /** Range. */
-    tcp_range m_range;
-
     /** Next port. */
     uint16_t m_next_port;
+
+    /** Range. */
+    tcp_range m_range;
 
     /** Current address info. */
     addrinfo *m_info;
@@ -88,4 +90,6 @@ private:
     addrinfo *m_current_info;
 };
 
-} // namespace ignite::network::detail
+} // namespace detail
+} // namespace network
+} // namespace ignite

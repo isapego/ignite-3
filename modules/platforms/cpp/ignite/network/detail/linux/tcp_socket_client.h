@@ -30,7 +30,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-namespace ignite::network {
+namespace ignite { namespace network {
 
 /**
  * Socket client implementation.
@@ -224,4 +224,4 @@ private:
     bool m_blocking{true};
 };
 
-} // namespace ignite::network
+} } // namespace ignite::network

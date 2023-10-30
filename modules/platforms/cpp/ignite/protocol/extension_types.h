@@ -19,7 +19,7 @@
 
 #include <cstdint>
 
-namespace ignite::protocol {
+namespace ignite { namespace protocol {
 
 /**
  * Extension types.
@@ -44,4 +44,4 @@ enum class extension_type : std::int8_t {
     NO_VALUE = 10
 };
 
-} // namespace ignite::protocol
+} } // namespace ignite::protocol

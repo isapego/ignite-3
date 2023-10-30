@@ -21,7 +21,7 @@
 #include "ignite/protocol/utils.h"
 #include "ignite/protocol/writer.h"
 
-namespace ignite::protocol {
+namespace ignite { namespace protocol {
 
 std::vector<std::byte> make_handshake_request(
     std::int8_t client_type, protocol_version ver, std::map<std::string, std::string> extensions) {
@@ -73,4 +73,4 @@ handshake_response parse_handshake_response(bytes_view message) {
     return res;
 }
 
-} // namespace ignite::protocol
+} } // namespace ignite::protocol

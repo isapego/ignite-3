@@ -21,7 +21,8 @@
 
 #include "ignite/common/uuid.h"
 
-namespace ignite::protocol {
+namespace ignite {
+namespace protocol {
 
 /**
  * Represents connection to the cluster.
@@ -66,4 +67,5 @@ private:
     uuid m_cluster_id;
 };
 
-} // namespace ignite::protocol
+} // namespace protocol
+} // namespace ignite

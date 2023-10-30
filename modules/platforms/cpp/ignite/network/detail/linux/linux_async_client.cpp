@@ -28,7 +28,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-namespace ignite::network::detail {
+namespace ignite { namespace network { namespace detail {
 
 linux_async_client::linux_async_client(int fd, end_point addr, tcp_range range)
     : m_state(state::CONNECTED)
@@ -168,4 +168,4 @@ bool linux_async_client::process_sent() {
     return send_next_packet_locked();
 }
 
-} // namespace ignite::network::detail
+} } } // namespace ignite::network::detail

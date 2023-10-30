@@ -20,7 +20,7 @@
 
 #include <sstream>
 
-namespace ignite::protocol {
+namespace ignite { namespace protocol {
 
 const protocol_version protocol_version::VERSION_3_0_0{3, 0, 0};
 
@@ -79,4 +79,4 @@ int32_t protocol_version::compare(const protocol_version &other) const {
     return res;
 }
 
-} // namespace ignite::protocol
+} } // namespace ignite::protocol

@@ -516,7 +516,7 @@ sql_result sql_statement::internal_prepare_sql_query(const std::string &query) {
     if (m_current_query)
         m_current_query->close();
 
-    m_current_query = std::make_unique<data_query>(*this, m_connection, query, m_parameters, m_timeout);
+    m_current_query = std::unique_ptr<data_query>(new data_query(*this, m_connection, query, m_parameters, m_timeout));
 
     return sql_result::AI_SUCCESS;
 }
@@ -561,7 +561,7 @@ sql_result sql_statement::internal_execute_get_columns_meta_query(
     if (m_current_query)
         m_current_query->close();
 
-    m_current_query = std::make_unique<column_metadata_query>(*this, m_connection, schema, table, column);
+    m_current_query = std::unique_ptr<column_metadata_query>(new column_metadata_query(*this, m_connection, schema, table, column));
     return m_current_query->execute();
 }
 
@@ -576,7 +576,7 @@ sql_result sql_statement::internal_execute_get_tables_meta_query(
     if (m_current_query)
         m_current_query->close();
 
-    m_current_query = std::make_unique<table_metadata_query>(*this, m_connection, catalog, schema, table, table_type);
+    m_current_query = std::unique_ptr<table_metadata_query>(new table_metadata_query(*this, m_connection, catalog, schema, table, table_type));
     return m_current_query->execute();
 }
 
@@ -594,8 +594,8 @@ sql_result sql_statement::internal_execute_get_foreign_keys_query(const std::str
     if (m_current_query)
         m_current_query->close();
 
-    m_current_query = std::make_unique<foreign_keys_query>(
-        *this, primary_catalog, primary_schema, primary_table, foreign_catalog, foreign_schema, foreign_table);
+    m_current_query = std::unique_ptr<foreign_keys_query>(new foreign_keys_query(
+        *this, primary_catalog, primary_schema, primary_table, foreign_catalog, foreign_schema, foreign_table));
 
     return m_current_query->execute();
 }
@@ -612,7 +612,7 @@ sql_result sql_statement::internal_execute_get_primary_keys_query(
     if (m_current_query)
         m_current_query->close();
 
-    m_current_query = std::make_unique<primary_keys_query>(*this, m_connection, schema, table);
+    m_current_query = std::unique_ptr<primary_keys_query>(new primary_keys_query(*this, m_connection, schema, table));
 
     return m_current_query->execute();
 }
@@ -660,7 +660,7 @@ sql_result sql_statement::internal_execute_get_type_info_query(std::int16_t sql_
     if (m_current_query)
         m_current_query->close();
 
-    m_current_query = std::make_unique<type_info_query>(*this, sql_type);
+    m_current_query = std::unique_ptr<type_info_query>(new type_info_query(*this, sql_type));
     return m_current_query->execute();
 }
 

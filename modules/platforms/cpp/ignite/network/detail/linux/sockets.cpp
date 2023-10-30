@@ -28,7 +28,7 @@
 #include <poll.h>
 #include <sys/socket.h>
 
-namespace ignite::network::detail {
+namespace ignite { namespace network { namespace detail {
 
 #if defined(__linux__)
 std::string get_socket_error_message(int error) {
@@ -169,4 +169,4 @@ bool set_non_blocking_mode(int socket_fd, bool non_blocking) {
     return res != -1;
 }
 
-} // namespace ignite::network::detail
+} } } // namespace ignite::network::detail

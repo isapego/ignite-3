@@ -23,7 +23,8 @@
 
 #include <string>
 
-namespace ignite::network {
+namespace ignite {
+namespace network {
 
 /**
  * Make basic TCP socket.
@@ -38,4 +39,5 @@ std::unique_ptr<socket_client> make_tcp_socket_client();
  */
 std::shared_ptr<async_client_pool> make_async_client_pool(data_filters filters);
 
-} // namespace ignite::network
+} // namespace network
+} // namespace ignite

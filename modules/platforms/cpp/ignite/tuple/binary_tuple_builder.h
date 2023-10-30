@@ -434,12 +434,12 @@ private:
      */
     template<typename TGT, typename SRC>
     static bool fits(SRC value) noexcept {
-        static_assert(std::is_signed_v<SRC>);
-        static_assert(std::is_signed_v<TGT>);
-        static_assert(sizeof(TGT) < sizeof(SRC));
+        static_assert(std::is_signed<SRC>::value, "SRC should be signed");
+        static_assert(std::is_signed<TGT>::value, "TGT should be signed");
+        static_assert(sizeof(TGT) < sizeof(SRC), "TGT should be smaller than SRC");
         // Check if TGT::min <= value <= TGT::max.
-        return std::make_unsigned_t<SRC>(value + std::numeric_limits<TGT>::max() + 1)
-            <= std::numeric_limits<std::make_unsigned_t<TGT>>::max();
+        return typename std::make_unsigned<SRC>::type(value + std::numeric_limits<TGT>::max() + 1)
+            <= std::numeric_limits<typename std::make_unsigned<TGT>::type>::max();
     }
 
     /**

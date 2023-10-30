@@ -17,10 +17,15 @@
 
 #pragma once
 
+#if __cplusplus <= 201402L
+# include "ignite/common/legacy_support.h"
+#endif
+
 #include <cstddef>
 #include <cstdint>
 
-namespace ignite::network {
+namespace ignite {
+namespace network {
 
 /**
  * Socket client implementation.
@@ -86,4 +91,5 @@ public:
     [[nodiscard]] virtual bool is_blocking() const = 0;
 };
 
-} // namespace ignite::network
+} // namespace network
+} // namespace ignite

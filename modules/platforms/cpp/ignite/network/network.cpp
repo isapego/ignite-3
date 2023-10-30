@@ -29,10 +29,10 @@
 # include "detail/linux/tcp_socket_client.h"
 #endif
 
-namespace ignite::network {
+namespace ignite { namespace network {
 
 std::unique_ptr<socket_client> make_tcp_socket_client() {
-    return std::make_unique<tcp_socket_client>();
+    return std::unique_ptr<tcp_socket_client>(new tcp_socket_client);
 }
 
 std::shared_ptr<async_client_pool> make_async_client_pool(data_filters filters) {
@@ -42,4 +42,4 @@ std::shared_ptr<async_client_pool> make_async_client_pool(data_filters filters) 
     return std::make_shared<async_client_pool_adapter>(std::move(filters), std::move(pool));
 }
 
-} // namespace ignite::network
+} } // namespace ignite::network

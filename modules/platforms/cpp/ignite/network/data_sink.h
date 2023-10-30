@@ -20,7 +20,8 @@
 #include <ignite/common/ignite_error.h>
 #include <ignite/network/data_buffer.h>
 
-namespace ignite::network {
+namespace ignite {
+namespace network {
 
 /**
  * Data sink. Can consume data.
@@ -51,4 +52,5 @@ public:
     virtual void close(uint64_t id, std::optional<ignite_error> err) = 0;
 };
 
-} // namespace ignite::network
+} // namespace network
+} // namespace ignite

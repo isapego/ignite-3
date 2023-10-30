@@ -21,7 +21,8 @@
 
 #include <limits>
 
-namespace ignite::protocol {
+namespace ignite {
+namespace protocol {
 
 /**
  * Buffer adapter.
@@ -77,4 +78,5 @@ private:
     std::size_t m_length_pos{std::numeric_limits<std::size_t>::max()};
 };
 
+}
 } // namespace ignite::protocol

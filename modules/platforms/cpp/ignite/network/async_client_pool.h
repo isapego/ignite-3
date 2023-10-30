@@ -25,7 +25,8 @@
 #include <memory>
 #include <vector>
 
-namespace ignite::network {
+namespace ignite {
+namespace network {
 
 /**
  * Asynchronous client pool.
@@ -60,4 +61,5 @@ public:
     virtual void set_handler(std::weak_ptr<async_handler> handler) = 0;
 };
 
-} // namespace ignite::network
+} // namespace network
+} // namespace ignite

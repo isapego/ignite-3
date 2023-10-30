@@ -19,7 +19,7 @@
 
 #include "error_handling_filter.h"
 
-namespace ignite::network {
+namespace ignite { namespace network {
 
 async_client_pool_adapter::async_client_pool_adapter(data_filters filters, std::shared_ptr<async_client_pool> pool)
     : m_filters(std::move(filters))
@@ -59,4 +59,4 @@ void async_client_pool_adapter::close(uint64_t id, std::optional<ignite_error> e
     m_sink->close(id, std::move(err));
 }
 
-} // namespace ignite::network
+} } // namespace ignite::network

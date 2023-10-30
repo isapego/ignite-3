@@ -23,10 +23,15 @@
 #include <random>
 #include <sstream>
 #include <string>
-#include <string_view>
 #include <vector>
 
-namespace ignite::network::detail {
+#if __cplusplus > 201402L
+# include <string_view>
+#else
+# include "ignite/common/legacy_support.h"
+#endif
+
+namespace ignite { namespace network { namespace detail {
 
 /**
  * Fibonacci sequence iterator.
@@ -42,7 +47,7 @@ public:
     /**
      * Constructor.
      */
-    constexpr fibonacci_sequence() {
+    fibonacci_sequence() {
         for (size_t i = 2; i < size; ++i)
             sequence[i] = sequence[i - 1] + sequence[i - 2];
     }
@@ -127,4 +132,4 @@ std::vector<Addrinfo *> shuffle_addresses(Addrinfo *addrsIn) {
     return res;
 }
 
-} // namespace ignite::network::detail
+} } } // namespace ignite::network::detail

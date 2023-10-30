@@ -18,11 +18,17 @@
 #pragma once
 
 #include <cstdint>
-#include <optional>
 #include <set>
 #include <string>
 
-namespace ignite::protocol {
+#if __cplusplus > 201402L
+# include <optional>
+#else
+# include "ignite/common/legacy_support.h"
+#endif
+
+namespace ignite {
+namespace protocol {
 
 /** Protocol version. */
 class protocol_version {
@@ -196,4 +202,5 @@ inline bool operator>=(const protocol_version &val1, const protocol_version &val
     return val1.compare(val2) >= 0;
 }
 
-} // namespace ignite::protocol
+} // namespace protocol
+} // namespace ignite

@@ -20,8 +20,14 @@
 #include <array>
 #include <cstddef>
 #include <string>
-#include <string_view>
 #include <vector>
+
+#if __cplusplus > 201402L
+# include <string_view>
+#else
+# include "ignite/common/legacy_support.h"
+#endif
+
 
 namespace ignite {
 
@@ -59,7 +65,7 @@ struct bytes_view : std::basic_string_view<std::byte> {
 
     explicit operator std::string() const { return {reinterpret_cast<const char *>(data()), size()}; }
 
-    explicit operator std::vector<std::byte>() const { return {begin(), end()}; }
+    explicit operator std::vector<std::byte>() const { return std::vector<std::byte>{begin(), end()}; }
 };
 
 } // namespace ignite

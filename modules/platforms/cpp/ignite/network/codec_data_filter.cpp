@@ -17,7 +17,7 @@
 
 #include "codec_data_filter.h"
 
-namespace ignite::network {
+namespace ignite { namespace network {
 
 codec_data_filter::codec_data_filter(std::shared_ptr<factory<codec>> factory)
     : m_codec_factory(std::move(factory))
@@ -91,4 +91,4 @@ std::shared_ptr<codec> codec_data_filter::find_codec(uint64_t id) {
     return it->second;
 }
 
-} // namespace ignite::network
+} } // namespace ignite::network

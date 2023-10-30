@@ -26,7 +26,7 @@
 #include <sstream>
 #include <type_traits>
 
-namespace ignite::protocol {
+namespace ignite { namespace protocol {
 
 /**
  * Check if int value fits in @c T.
@@ -486,4 +486,4 @@ primitive read_next_column(binary_tuple_parser &parser, ignite_type typ, std::in
     }
 }
 
-} // namespace ignite::protocol
+} } // namespace ignite::protocol

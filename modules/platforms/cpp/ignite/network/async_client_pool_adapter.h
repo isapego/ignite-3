@@ -20,9 +20,14 @@
 #include <ignite/network/async_client_pool.h>
 #include <ignite/network/data_filter.h>
 
-#include <optional>
+#if __cplusplus > 201402L
+# include <optional>
+#else
+# include "ignite/common/legacy_support.h"
+#endif
 
-namespace ignite::network {
+namespace ignite {
+namespace network {
 
 /**
  * Asynchronous client pool adapter.
@@ -91,4 +96,5 @@ private:
     data_sink *m_sink;
 };
 
-} // namespace ignite::network
+} // namespace network
+} // namespace ignite

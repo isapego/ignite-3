@@ -24,7 +24,7 @@
 #include <cstddef>
 #include <cstring>
 
-namespace ignite::protocol {
+namespace ignite { namespace protocol {
 
 /**
  * Bitset span.
@@ -69,4 +69,4 @@ private:
     std::size_t m_size;
 };
 
-} // namespace ignite::protocol
+} } // namespace ignite::protocol

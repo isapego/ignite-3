@@ -523,10 +523,10 @@ private:
     protocol::protocol_version m_protocol_version;
 
     /** Request ID generator. */
-    std::atomic_int64_t m_req_id_gen{0};
+    std::atomic<std::int64_t> m_req_id_gen{0};
 
     /** Observable timestamp. */
-    std::atomic_int64_t m_observable_timestamp{0};
+    std::atomic<std::int64_t> m_observable_timestamp{0};
 };
 
 } // namespace ignite
