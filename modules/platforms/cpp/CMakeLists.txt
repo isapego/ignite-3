@@ -76,6 +76,11 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 if (MSVC)
     add_compile_options(/source-charset:utf-8 /execution-charset:utf-8)
     add_definitions(-D_CRT_SECURE_NO_WARNINGS -D_SCL_SECURE_NO_WARNINGS)
+
+    if (ENABLE_ADDRESS_SANITIZER)
+        add_compile_options(/fsanitize=address)
+    endif()
+
 endif()
 
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU")

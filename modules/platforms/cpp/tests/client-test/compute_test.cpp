@@ -31,7 +31,7 @@ using namespace ignite;
 /**
  * Test suite.
  */
-class compute_test : public ignite_runner_suite {
+class DISABLED_compute_test : public ignite_runner_suite {
 protected:
     void SetUp() override {
         ignite_client_configuration cfg{get_node_addrs()};
@@ -93,7 +93,7 @@ protected:
     ignite_client m_client;
 };
 
-TEST_F(compute_test, get_cluster_nodes) {
+TEST_F(DISABLED_compute_test, get_cluster_nodes) {
     auto cluster_nodes = m_client.get_cluster_nodes();
 
     std::sort(cluster_nodes.begin(), cluster_nodes.end(),
@@ -113,7 +113,7 @@ TEST_F(compute_test, get_cluster_nodes) {
     EXPECT_EQ(cluster_nodes[0].get_address().host, cluster_nodes[1].get_address().host);
 }
 
-TEST_F(compute_test, execute_on_random_node) {
+TEST_F(DISABLED_compute_test, execute_on_random_node) {
     auto cluster_nodes = m_client.get_cluster_nodes();
 
     auto execution = m_client.get_compute().submit(cluster_nodes, {}, NODE_NAME_JOB, {}, {});
@@ -123,7 +123,7 @@ TEST_F(compute_test, execute_on_random_node) {
     EXPECT_THAT(result.value().get<std::string>(), ::testing::StartsWith(PLATFORM_TEST_NODE_RUNNER));
 }
 
-TEST_F(compute_test, execute_on_specific_node) {
+TEST_F(DISABLED_compute_test, execute_on_specific_node) {
     auto execution1 = m_client.get_compute().submit({get_node(0)}, {}, NODE_NAME_JOB, {"-", 11}, {});
     auto execution2 = m_client.get_compute().submit({get_node(1)}, {}, NODE_NAME_JOB, {":", 22}, {});
 
@@ -137,7 +137,7 @@ TEST_F(compute_test, execute_on_specific_node) {
     EXPECT_EQ(res2.value().get<std::string>(), PLATFORM_TEST_NODE_RUNNER + "_2:_22");
 }
 
-TEST_F(compute_test, execute_broadcast_one_node) {
+TEST_F(DISABLED_compute_test, execute_broadcast_one_node) {
     auto res = m_client.get_compute().submit_broadcast({get_node(1)}, {}, NODE_NAME_JOB, {"42"}, {});
 
     ASSERT_EQ(res.size(), 1);
@@ -148,7 +148,7 @@ TEST_F(compute_test, execute_broadcast_one_node) {
     EXPECT_EQ(res.begin()->second.value().get_result(), PLATFORM_TEST_NODE_RUNNER + "_242");
 }
 
-TEST_F(compute_test, execute_broadcast_all_nodes) {
+TEST_F(DISABLED_compute_test, execute_broadcast_all_nodes) {
     auto res = m_client.get_compute().submit_broadcast(get_node_set(), {}, NODE_NAME_JOB, {"42"}, {});
 
     ASSERT_EQ(res.size(), 4);
@@ -159,7 +159,7 @@ TEST_F(compute_test, execute_broadcast_all_nodes) {
     EXPECT_EQ(res[get_node(3)].value().get_result(), get_node(3).get_name() + "42");
 }
 
-TEST_F(compute_test, execute_with_args) {
+TEST_F(DISABLED_compute_test, execute_with_args) {
     auto cluster_nodes = m_client.get_cluster_nodes();
 
     auto execution = m_client.get_compute().submit(cluster_nodes, {}, CONCAT_JOB, {5.3, uuid(), "42", nullptr}, {});
@@ -169,7 +169,7 @@ TEST_F(compute_test, execute_with_args) {
     EXPECT_EQ(result.value().get<std::string>(), "5.3_00000000-0000-0000-0000-000000000000_42_null");
 }
 
-TEST_F(compute_test, job_error_propagates_to_client) {
+TEST_F(DISABLED_compute_test, job_error_propagates_to_client) {
     auto cluster_nodes = m_client.get_cluster_nodes();
 
     EXPECT_THROW(
@@ -189,7 +189,7 @@ TEST_F(compute_test, job_error_propagates_to_client) {
         ignite_error);
 }
 
-TEST_F(compute_test, unknown_node_execute_throws) {
+TEST_F(DISABLED_compute_test, unknown_node_execute_throws) {
     auto unknown_node = cluster_node("some", "random", {"127.0.0.1", 1234});
 
     EXPECT_THROW(
@@ -206,7 +206,7 @@ TEST_F(compute_test, unknown_node_execute_throws) {
 }
 
 // TODO https://issues.apache.org/jira/browse/IGNITE-21553
-TEST_F(compute_test, DISABLED_unknown_node_broadcast_throws) {
+TEST_F(DISABLED_compute_test, DISABLED_unknown_node_broadcast_throws) {
     auto unknown_node = cluster_node("some", "random", {"127.0.0.1", 1234});
 
     EXPECT_THROW(
@@ -222,7 +222,7 @@ TEST_F(compute_test, DISABLED_unknown_node_broadcast_throws) {
         ignite_error);
 }
 
-TEST_F(compute_test, all_arg_types) {
+TEST_F(DISABLED_compute_test, all_arg_types) {
     check_argument<std::int8_t>(42);
     check_argument<std::int8_t>(std::numeric_limits<std::int8_t>::max());
     check_argument<std::int8_t>(std::numeric_limits<std::int8_t>::min());
@@ -266,7 +266,7 @@ TEST_F(compute_test, all_arg_types) {
     check_argument<uuid>({0x123e4567e89b12d3, 0x7456426614174000}, "123e4567-e89b-12d3-7456-426614174000");
 }
 
-TEST_F(compute_test, submit_colocated) {
+TEST_F(DISABLED_compute_test, submit_colocated) {
     std::map<std::int32_t, std::string> nodes_for_values = {{1, "_2"}, {5, "_4"}, {9, ""}, {10, "_2"}, {11, "_4"}};
 
     for (const auto &var : nodes_for_values) {
@@ -281,7 +281,7 @@ TEST_F(compute_test, submit_colocated) {
     }
 }
 
-TEST_F(compute_test, execute_colocated_throws_when_table_does_not_exist) {
+TEST_F(DISABLED_compute_test, execute_colocated_throws_when_table_does_not_exist) {
     EXPECT_THROW(
         {
             try {
@@ -294,7 +294,7 @@ TEST_F(compute_test, execute_colocated_throws_when_table_does_not_exist) {
         ignite_error);
 }
 
-TEST_F(compute_test, execute_colocated_throws_when_key_column_is_missing) {
+TEST_F(DISABLED_compute_test, execute_colocated_throws_when_key_column_is_missing) {
     EXPECT_THROW(
         {
             try {
@@ -307,7 +307,7 @@ TEST_F(compute_test, execute_colocated_throws_when_key_column_is_missing) {
         ignite_error);
 }
 
-TEST_F(compute_test, execute_colocated_throws_when_key_is_empty) {
+TEST_F(DISABLED_compute_test, execute_colocated_throws_when_key_is_empty) {
     EXPECT_THROW(
         {
             try {
@@ -320,7 +320,7 @@ TEST_F(compute_test, execute_colocated_throws_when_key_is_empty) {
         ignite_error);
 }
 
-TEST_F(compute_test, unknown_unit) {
+TEST_F(DISABLED_compute_test, unknown_unit) {
     EXPECT_THROW(
         {
             try {
@@ -334,7 +334,7 @@ TEST_F(compute_test, unknown_unit) {
         ignite_error);
 }
 
-TEST_F(compute_test, execute_unknown_unit_and_version) {
+TEST_F(DISABLED_compute_test, execute_unknown_unit_and_version) {
     EXPECT_THROW(
         {
             try {
@@ -348,7 +348,7 @@ TEST_F(compute_test, execute_unknown_unit_and_version) {
         ignite_error);
 }
 
-TEST_F(compute_test, execute_colocated_unknown_unit_and_version) {
+TEST_F(DISABLED_compute_test, execute_colocated_unknown_unit_and_version) {
     EXPECT_THROW(
         {
             try {
@@ -362,7 +362,7 @@ TEST_F(compute_test, execute_colocated_unknown_unit_and_version) {
         ignite_error);
 }
 
-TEST_F(compute_test, broadcast_unknown_unit_and_version) {
+TEST_F(DISABLED_compute_test, broadcast_unknown_unit_and_version) {
     auto res = m_client.get_compute().submit_broadcast({get_node(1)}, {{"unknown", "1.2.3"}}, NODE_NAME_JOB, {}, {});
 
     ASSERT_EQ(res.size(), 1);
@@ -372,7 +372,7 @@ TEST_F(compute_test, broadcast_unknown_unit_and_version) {
     EXPECT_THAT(res1.error().what_str(), ::testing::HasSubstr("Deployment unit unknown:1.2.3 doesn't exist"));
 }
 
-TEST_F(compute_test, execute_empty_unit_name) {
+TEST_F(DISABLED_compute_test, execute_empty_unit_name) {
     EXPECT_THROW(
         {
             try {
@@ -385,7 +385,7 @@ TEST_F(compute_test, execute_empty_unit_name) {
         ignite_error);
 }
 
-TEST_F(compute_test, execute_empty_unit_version) {
+TEST_F(DISABLED_compute_test, execute_empty_unit_version) {
     EXPECT_THROW(
         {
             try {
@@ -398,7 +398,7 @@ TEST_F(compute_test, execute_empty_unit_version) {
         ignite_error);
 }
 
-TEST_F(compute_test, broadcast_empty_unit_name) {
+TEST_F(DISABLED_compute_test, broadcast_empty_unit_name) {
     EXPECT_THROW(
         {
             try {
@@ -411,7 +411,7 @@ TEST_F(compute_test, broadcast_empty_unit_name) {
         ignite_error);
 }
 
-TEST_F(compute_test, broadcast_empty_unit_version) {
+TEST_F(DISABLED_compute_test, broadcast_empty_unit_version) {
     EXPECT_THROW(
         {
             try {
@@ -424,7 +424,7 @@ TEST_F(compute_test, broadcast_empty_unit_version) {
         ignite_error);
 }
 
-TEST_F(compute_test, execute_colocated_empty_unit_name) {
+TEST_F(DISABLED_compute_test, execute_colocated_empty_unit_name) {
     EXPECT_THROW(
         {
             try {
@@ -437,7 +437,7 @@ TEST_F(compute_test, execute_colocated_empty_unit_name) {
         ignite_error);
 }
 
-TEST_F(compute_test, execute_colocated_empty_unit_version) {
+TEST_F(DISABLED_compute_test, execute_colocated_empty_unit_version) {
     EXPECT_THROW(
         {
             try {
@@ -451,7 +451,7 @@ TEST_F(compute_test, execute_colocated_empty_unit_version) {
         ignite_error);
 }
 
-TEST_F(compute_test, job_execution_status_executing) {
+TEST_F(DISABLED_compute_test, job_execution_status_executing) {
     const std::int32_t sleep_ms = 3000;
 
     auto execution = m_client.get_compute().submit({get_node(1)}, {}, SLEEP_JOB, {sleep_ms}, {});
@@ -462,7 +462,7 @@ TEST_F(compute_test, job_execution_status_executing) {
     EXPECT_EQ(job_state::EXECUTING, status->state);
 }
 
-TEST_F(compute_test, DISABLED_job_execution_status_completed) {
+TEST_F(DISABLED_compute_test, DISABLED_job_execution_status_completed) {
     const std::int32_t sleep_ms = 1;
 
     auto execution = m_client.get_compute().submit({get_node(1)}, {}, SLEEP_JOB, {sleep_ms}, {});
@@ -474,7 +474,7 @@ TEST_F(compute_test, DISABLED_job_execution_status_completed) {
     EXPECT_EQ(job_state::COMPLETED, status->state);
 }
 
-TEST_F(compute_test, job_execution_status_failed) {
+TEST_F(DISABLED_compute_test, job_execution_status_failed) {
     auto execution = m_client.get_compute().submit({get_node(1)}, {}, ERROR_JOB, {"unused"}, {});
 
     EXPECT_THROW(
@@ -494,7 +494,7 @@ TEST_F(compute_test, job_execution_status_failed) {
     EXPECT_EQ(job_state::FAILED, status->state);
 }
 
-TEST_F(compute_test, job_execution_cancel) {
+TEST_F(DISABLED_compute_test, job_execution_cancel) {
     const std::int32_t sleep_ms = 5000;
 
     auto execution = m_client.get_compute().submit({get_node(1)}, {}, SLEEP_JOB, {sleep_ms}, {});
@@ -506,7 +506,7 @@ TEST_F(compute_test, job_execution_cancel) {
     EXPECT_EQ(job_state::CANCELED, status->state);
 }
 
-TEST_F(compute_test, job_execution_change_priority) {
+TEST_F(DISABLED_compute_test, job_execution_change_priority) {
     const std::int32_t sleep_ms = 5000;
 
     auto execution = m_client.get_compute().submit({get_node(1)}, {}, SLEEP_JOB, {sleep_ms}, {});

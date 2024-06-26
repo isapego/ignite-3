@@ -72,12 +72,12 @@ int main(int argc, char **argv) {
         runner.stop();
     });
 
-    if (!check_test_node_connectable(std::chrono::seconds(5))) {
-        runner.start();
-        ensure_node_connectable(std::chrono::seconds(60));
-    }
-
     try {
+        if (!check_test_node_connectable(std::chrono::seconds(5))) {
+            runner.start();
+            ensure_node_connectable(std::chrono::seconds(60));
+        }
+
         ::testing::InitGoogleTest(&argc, argv);
         [[maybe_unused]] int run_res = RUN_ALL_TESTS();
     } catch (const std::exception &err) {
